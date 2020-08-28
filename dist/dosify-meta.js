@@ -54,13 +54,14 @@
     }
 
     const createMetaDescription = (content) => {
-        content = content.replace(/(\r\n)+/g, '\r\n');
-        content = content.replace(/#+ /g, '');
-        content = content.replace(/<[^>]*>/g, '');
+        let copied = content;
+        copied = copied.replace(/(\r\n|\n)+/g, '\r\n');
+        copied = copied.replace(/#+ /g, '');
+        copied = copied.replace(/<[^>]*>/g, '');
 
-        content = content.slice(0, 160);
+        copied = copied.slice(0, 160);
 
-        createMetaTag(content, 'description');
+        createMetaTag(copied, 'description');
     }
 
     const createMetaKeywords = (content) => {
@@ -81,7 +82,7 @@
     }
 
     const getContentTitle = (content) => {
-        const title = /^(.*)(?:\r\n)/g.exec(content);
+        const title = /^(.*)(?:\r\n|\n)/g.exec(content);
         if (title && title[1]) {
             title[1] = title[1].replace(/# /g, '');
             return title[1];
@@ -98,10 +99,10 @@
 
     const CONFIG = {
         aggressiveTitle: false,
-        author: false, // String
+        author: false,
         keyword: true,
         description: true,
-        keywordPattern: /keyword: *(.*)(?:\r\n)*$/g, // RegExp or String
+        keywordPattern: /keyword: *(.*)(?:\r\n|\n)*$/g, // RegExp or String
     };
 
     var install = (hook, vm) => {
