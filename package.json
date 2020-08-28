@@ -1,0 +1,43 @@
+{
+  "name": "docsify-meta",
+  "version": "1.0.0",
+  "description": "meta datas generator for docsify",
+  "keywords": [
+    "meta",
+    "docsify"
+  ],
+  "scripts": {
+    "serve": "docsify serve . --open",
+    "examples": "docsify serve . --open",
+    "build": "webpack && webpack --config webpack.config.min.js",
+    "fix": "eslint --fix lib/**/*.js"
+  },
+  "main": "dist/docsify-meta.js",
+  "homepage": "https://github.com/tristan3716/docsify-meta",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tristan3716/docsify-meta.git"
+  },
+  "author": "tristan3716",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tristan3716/docsify-meta/issues",
+    "email": "tristan3716@gmail.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "jsdelivr": "dist/docsify-meta.min.js",
+  "unpkg": "dist/docsify-meta.min.js",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "commondir": "^1.0.1"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  }
+}
