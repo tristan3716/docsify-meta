@@ -7,14 +7,44 @@
 
     let _$contentTitle = null;
     
-    const isArray = (arguments) => {
-        return Object.prototype.toString.call(arguments) === '[object Array]';
+    const isArray = (arg) => {
+        return Object.prototype.toString.call(arg) === '[object Array]';
     }
-    const isRegExp = (arguments) => {
-        return Object.prototype.toString.call(arguments) === '[object RegExp]';
+    const isRegExp = (arg) => {
+        return Object.prototype.toString.call(arg) === '[object RegExp]';
     }
-    const isString = (arguments) => {
-        return Object.prototype.toString.call(arguments) === '[object String]';
+    const isString = (arg) => {
+        return Object.prototype.toString.call(arg) === '[object String]';
+    }
+
+    const cloneRegExp = ( regex ) => {
+        if (isRegExp(regex)) {
+            return new RegExp(regex.source, regex.flags);
+        } else {
+            const a = regex.split("/");
+    
+            flags = a.pop(); a.shift();
+            pattern = a.join("/");
+    
+            return new RegExp(pattern, flags);
+        }
+    }
+
+    const createMetaKeywords = function(content, keywordPattern, callback) {
+        setTimeout(() => {
+            const regex = cloneRegExp(keywordPattern);
+            
+            keywordRaw = regex.exec(content);
+            keywords = [];
+            
+            if (keywordRaw && keywordRaw[1]) {
+                for (let keyword of keywordRaw[1].split(",")) {
+                    keyword = keyword.trim();
+                    keywords.push(keyword);
+                }
+                callback(keywords, 'keyword');
+            }
+        }, 0);
     }
 
     const createMetaTag = (content, name = null) => {
@@ -50,8 +80,6 @@
 
         createMetaTag(copied, 'description');
     }
-
-    const keyword = require('./docsify-meta-keyword.js');
 
     const getContentTitle = (content) => {
         const title = /^(.*)(?:\r\n|\n)/g.exec(content);
@@ -115,7 +143,7 @@
                 _$contentTitle = getContentTitle(content);
             }
             if (CONFIG.keyword) {
-                keyword.createMetaKeywords(content, CONFIG.keywordPattern, createMetaTag);
+                createMetaKeywords(content, CONFIG.keywordPattern, createMetaTag);
             }
 
             if (CONFIG.description) {

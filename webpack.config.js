@@ -1,31 +1,69 @@
-var path = require('path');
+const path = require('path');
+const TerserJSPlugin = require('terser-webpack-plugin');
 
-module.exports = {
-    entry: './lib/docsify-meta.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'docsify-meta.js',
-    },
-
-    performance: {
-        hints: 'warning'
-    },
-
-    optimization: {
-        namedModules: false,
-        namedChunks: false,
-        nodeEnv: 'production',
-        flagIncludedChunks: true,
-        occurrenceOrder: true,
-        concatenateModules: true,
-        splitChunks: {
-            hidePathInfo: true,
-            minSize: 30000,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
+module.exports = [
+    {
+        entry: {
+            "docsify-meta": path.resolve(__dirname, "src/js/docsify-meta.js")
         },
-        noEmitOnErrors: true,
-        checkWasmTypes: true,
-        minimize: false,
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: '[name].js',
+            publicPath: '/',
+            library: "docsify-meta",
+            libraryTarget: "umd",
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    include: path.join(__dirname),
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env'],
+                        }
+                    },
+                },
+            ],
+        },
+        optimization: {
+            minimize: false,
+        },
     },
-};
+    {
+
+        entry: {
+            "docsify-meta.min": path.resolve(__dirname, "src/js/docsify-meta.js")
+        },
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: '[name].js',
+            publicPath: '/',
+            library: "docsify-meta",
+            libraryTarget: "umd",
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    include: path.join(__dirname),
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env'],
+                        }
+                    },
+                },
+            ],
+        },
+        optimization: {
+            minimize: true,
+            minimizer: [
+              new TerserJSPlugin({}),
+            ],
+        },
+    },
+]

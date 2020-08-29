@@ -1,43 +1,46 @@
 {
-  "name": "docsify-meta",
-  "version": "1.0.0",
-  "description": "meta datas generator for docsify",
-  "keywords": [
-    "meta",
-    "docsify"
-  ],
-  "scripts": {
-    "serve": "docsify serve . --open",
-    "examples": "docsify serve . --open",
-    "build": "webpack && webpack --config webpack.config.min.js",
-    "fix": "eslint --fix lib/**/*.js"
-  },
-  "main": "dist/docsify-meta.js",
-  "homepage": "https://github.com/tristan3716/docsify-meta",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tristan3716/docsify-meta.git"
-  },
-  "author": "tristan3716",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tristan3716/docsify-meta/issues",
-    "email": "tristan3716@gmail.com"
-  },
-  "files": [
-    "dist"
-  ],
-  "jsdelivr": "dist/docsify-meta.min.js",
-  "unpkg": "dist/docsify-meta.min.js",
-  "devDependencies": {
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
-  },
-  "dependencies": {
-    "commondir": "^1.0.1"
-  },
-  "directories": {
-    "example": "examples",
-    "lib": "lib"
-  }
+    "name": "docsify-meta",
+    "version": "1.0.0",
+    "description": "meta datas generator for docsify",
+    "keywords": [
+        "meta",
+        "docsify"
+    ],
+    "scripts": {
+        "serve": "docsify serve . --open",
+        "examples": "docsify serve . --open",
+        "build": "webpack --mode=production",
+        "fix": "eslint --fix lib/**/*.js",
+        "dev": "webpack-dev-server --open --progress"
+    },
+    "main": "dist/docsify-meta.js",
+    "homepage": "https://github.com/tristan3716/docsify-meta",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tristan3716/docsify-meta.git"
+    },
+    "author": "tristan3716",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tristan3716/docsify-meta/issues",
+        "email": "tristan3716@gmail.com"
+    },
+    "files": [
+        "dist"
+    ],
+    "jsdelivr": "dist/docsify-meta.min.js",
+    "unpkg": "dist/docsify-meta.min.js",
+    "devDependencies": {
+        "@babel/core": "^7.11.4",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/preset-env": "^7.11.0",
+        "babel-loader": "^8.1.0",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "terser-webpack-plugin": "^4.1.0",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "dependencies": {
+        "commondir": "^1.0.1"
+    }
 }
