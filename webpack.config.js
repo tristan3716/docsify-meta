@@ -4,7 +4,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = [
     {
         entry: {
-            "docsify-meta": path.resolve(__dirname, "src/js/docsify-meta.js")
+            "docsify-meta": path.resolve(__dirname, "lib/docsify-meta.js")
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
@@ -35,7 +35,7 @@ module.exports = [
     {
 
         entry: {
-            "docsify-meta.min": path.resolve(__dirname, "src/js/docsify-meta.js")
+            "docsify-meta.min": path.resolve(__dirname, "lib/docsify-meta.js")
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
