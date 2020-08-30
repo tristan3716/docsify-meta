@@ -27,6 +27,6 @@
 |aggressiveTitle|본문의 첫번째 '#' 태그를 제목으로 생성 및 title 변경|false|
 |description|본문의 특수문자 제거후 첫 160글자를 설명으로 생성|true|
 |keyword|본문중 패턴에 의해 선택된 문자열을 키워드로 생성 (구분자: `,`)|true|
-|keywordPattern|keyword 선택 기준(String or RegExp)|`/keyword: *(.*)(?:\r\n)*$/g`|
+|keywordPattern|keyword 선택 기준(String or RegExp)|`/keyword: *(.*)(?:\r\n|\n)*$/g`|
 
 keyword: meta, docsify
