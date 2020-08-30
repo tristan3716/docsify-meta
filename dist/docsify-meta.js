@@ -106,7 +106,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 (function () {
   var metaFieldName = 'META FIELD';
-  var head = Docsify.dom.find('head');
+  var find = Docsify.dom.find;
+  var head = find('head');
   var $metaFieldStart = null;
   var $metaFieldEnd = null;
   var _$contentTitle = null;
@@ -127,22 +128,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     if (isRegExp(regex)) {
       return new RegExp(regex.source, regex.flags);
     } else {
-      var a = regex.split("/");
-      flags = a.pop();
+      var a = regex.split('/');
+      var flags = a.pop();
       a.shift();
-      pattern = a.join("/");
+      var pattern = a.join('/');
       return new RegExp(pattern, flags);
     }
   };
 
-  var createMetaKeywords = function createMetaKeywords(content, keywordPattern, callback) {
+  var createMetaKeywords = function createMetaKeywords(content, keywordPattern) {
     setTimeout(function () {
       var regex = cloneRegExp(keywordPattern);
-      keywordRaw = regex.exec(content);
-      keywords = [];
+      var keywordRaw = regex.exec(content);
+      var keywords = [];
 
       if (keywordRaw && keywordRaw[1]) {
-        var _iterator = _createForOfIteratorHelper(keywordRaw[1].split(",")),
+        var _iterator = _createForOfIteratorHelper(keywordRaw[1].split(',')),
             _step;
 
         try {
@@ -157,7 +158,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _iterator.f();
         }
 
-        callback(keywords, 'keyword');
+        createMetaTag(keywords, 'keyword');
       }
     }, 0);
   };
@@ -181,7 +182,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   var createMetaTitle = function createMetaTitle() {
     var title = _$contentTitle || Docsify.dom.$.title;
-    var titleNode = Docsify.dom.find('head title');
+    var titleNode = find('head title');
     titleNode.textContent = title;
     head.removeChild(titleNode);
     head.insertBefore(titleNode, $metaFieldStart);
@@ -241,13 +242,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     hook.mounted(function () {
       $metaFieldStart = document.createComment(metaFieldName);
-      Docsify.dom.find('head').appendChild($metaFieldStart);
+      find('head').appendChild($metaFieldStart);
       $metaFieldEnd = document.createComment(metaFieldName);
-      Docsify.dom.find('head').appendChild($metaFieldEnd);
-      var metaDescription = Docsify.dom.find('meta[name="description"]');
+      find('head').appendChild($metaFieldEnd);
+      var metaDescription = find('meta[name="description"]');
 
       if (metaDescription) {
-        Docsify.dom.find('head').removeChild(metaDescription);
+        find('head').removeChild(metaDescription);
       }
     });
     hook.beforeEach(function (content) {
@@ -258,7 +259,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       if (CONFIG.keyword) {
-        createMetaKeywords(content, CONFIG.keywordPattern, createMetaTag);
+        createMetaKeywords(content, CONFIG.keywordPattern);
       }
 
       if (CONFIG.description) {
